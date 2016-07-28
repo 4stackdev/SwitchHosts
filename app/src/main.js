@@ -21,7 +21,8 @@ var lang = require('./lang').getLang(navigator.language);
 var stat = require('./stat');
 var tray_obj;
 
-require('./component/hostList');
+require('./components/hostList');
+// import s from './components/settings.vue';
 
 var app = new Vue({
     el: '#sh-app',
@@ -456,7 +457,7 @@ var app = new Vue({
 
         mySearch: function (item) {
             if (!item) return false;
-            
+
             var kw = this.search_keyword;
             var r = this.search_regexp;
             item._is_show = true;

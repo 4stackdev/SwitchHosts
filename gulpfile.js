@@ -17,6 +17,7 @@ const header = require('gulp-header');
 // const stylus = require('gulp-stylus');
 const babel = require('gulp-babel');
 const replace = require('gulp-replace-task');
+const vueify = require('gulp-vueify');
 const args = require('yargs').argv;
 const moment = require('moment');
 
@@ -33,7 +34,7 @@ const output = {
     ascii_only: true
 };
 
-gulp.task('zip', function () {
+gulp.task('zip', ()=>{
     const config = require('./app/src/config');
     let dir = args.dir;
     if (!dir || !fs.existsSync(dir)) {
@@ -57,7 +58,7 @@ gulp.task('zip', function () {
     ;
 });
 
-gulp.task('ver', function () {
+gulp.task('ver', ()=>{
     const fn_config = './app/src/config.js';
     const config = require('./app/src/config');
 
@@ -93,7 +94,7 @@ gulp.task('ver', function () {
     fs.writeFileSync(fn_config, c, 'utf-8');
 });
 
-gulp.task('js', ['ver'], function () {
+gulp.task('js', ['ver'], ()=>{
     const config = require('./app/src/config');
 
     let s = gulp.src(['app/src/**/*.js'])
@@ -126,7 +127,14 @@ gulp.task('js', ['ver'], function () {
     });
 });
 
-gulp.task('default', function () {
+gulp.task('vue', ()=>{
+    return gulp.src('./app/src/**/*.vue')
+        .pipe(vueify())
+        .pipe(gulp.dest('./tmp'))
+        ;
+});
+
+gulp.task('default', ()=>{
     gulp.start('js');
     gulp.watch('app/src/**/*.js', ['js']);
 });

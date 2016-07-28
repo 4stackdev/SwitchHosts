@@ -219,7 +219,7 @@ function openURL(url) {
 function activate() {
     setTimeout(function () {
         MacGap.activate();
-    }, 0);
+    }, 10);
 }
 
 function notify(type, title, content) {
